@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "node server.js",
+    "start": "node server.js",
     "build:client": "vite build --outDir dist/client",
     "build:server": "vite build --ssr src/entry-server.jsx --outDir dist/server",
     "build": "npm run build:client && npm run build:server",
@@ -17,6 +17,7 @@
     "express": "^4.21.2",
     "express-session": "^1.18.1",
     "mongodb": "^6.13.0",
+    "nes.css": "^2.2.1",
     "passport": "^0.7.0",
     "passport-github2": "^0.1.12",
     "passport-local": "^1.0.0",

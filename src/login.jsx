@@ -29,11 +29,12 @@ const Login = () => {
   };
 
   return (
-    <div>
+    <div id='myDiv1' className='nes-container'>
       <h2>Login to Austin's Scoreboard</h2>
       <input
         type="text"
         placeholder="Username"
+        className='nes-input'
         value={username}
         onChange={(e) => setUsername(e.target.value)}
       />
@@ -41,14 +42,15 @@ const Login = () => {
       <input
         type="password"
         placeholder="Password"
+        className='nes-input'
         value={password}
         onChange={(e) => setPassword(e.target.value)}
       />
       <br />
-      <button onClick={handleLogin}>Login</button>
+      <button className='nes-btn' onClick={handleLogin}>Login</button>
       <p>{message}</p>
       <br />
-      <a href="/auth/github"><button id="githubButton">Login with GitHub</button></a>
+      <a href="/auth/github"><button id="githubButton" className='nes-btn is-warning'>Login with GitHub</button></a>
     </div>
   );
 };

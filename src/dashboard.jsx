@@ -78,7 +78,7 @@ const Dashboard = () => {
   };
 
   return (
-    <div>
+    <div id="myDiv1">
       <h2>High Scores</h2>
       
       {/* Input Form */}
@@ -86,6 +86,7 @@ const Dashboard = () => {
         <input
           type="text"
           placeholder="Name"
+          className="nes-input"
           value={name}
           onChange={(e) => setName(e.target.value)}
           required
@@ -93,6 +94,7 @@ const Dashboard = () => {
         <input
           type="number"
           placeholder="Score"
+          className="nes-input"
           value={score}
           onChange={(e) => setScore(e.target.value)}
           required
@@ -100,15 +102,18 @@ const Dashboard = () => {
         <input
           type="date"
           value={date}
+          className="nes-input"
           onChange={(e) => setDate(e.target.value)}
           required
         />
-        <button type="submit">Submit</button>
-        <button type="button" onClick={fetchScores}>Check Scores</button>
+        <button type="submit" className="nes-btn is-warning">Submit</button>
+        <button type="button" className="nes-btn is-warning" onClick={fetchScores}>Check Scores</button>
       </form>
 
+      <br />
+
       {/* High Score Table */}
-      <table>
+      <table class="nes-table is-bordered is-centered">
         <thead>
           <tr>
             <th>#</th>

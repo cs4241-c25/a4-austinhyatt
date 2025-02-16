@@ -99,7 +99,8 @@ const startServer = async () => {
   
 
   // Local Login Route
-  app.post("/login", (req, res, next) => {
+  app.post("/api/login", (req, res, next) => {
+    console.log("running");
     passport.authenticate("local", (err, user, info) => {
       if (err) {
         console.error("Login error:", err);
@@ -203,7 +204,7 @@ const startServer = async () => {
   });
 
   // Serve Frontend (Vite SSR)
-  app.use("*", async (req, res) => {
+  app.get("*", async (req, res) => {
     try {
       const template = fs.readFileSync("index.html", "utf-8");
       const transformedTemplate = await vite.transformIndexHtml(req.originalUrl, template);
