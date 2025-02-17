@@ -57,7 +57,7 @@ const startServer = async () => {
       {
         clientID: process.env.GITHUB_CLIENT_ID,
         clientSecret: process.env.GITHUB_CLIENT_SECRET,
-        callbackURL: "http://localhost:5000/auth/github/callback",
+        callbackURL: "https://a4-austinhyatt.onrender.com/auth/github/callback",
       },
       function (accessToken, refreshToken, profile, done) {
         return done(null, profile);
