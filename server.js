@@ -83,7 +83,7 @@ const startServer = async () => {
       res.redirect("/dashboard");
     }
   );
-  
+
   // Dummy users (Replace with real MongoDB authentication logic)
   const users = [{ id: 1, username: "a", password: "a" }];
 
@@ -91,12 +91,12 @@ const startServer = async () => {
   passport.use(
     new LocalStrategy((username, password, done) => {
       console.log("Authenticating:", username, password); // Debugging
-  
+
       console.log("Login successful:", username, password);
       return done(null, username);
     })
   );
-  
+
 
   // Local Login Route
   app.post("/api/login", (req, res, next) => {
@@ -106,12 +106,12 @@ const startServer = async () => {
         console.error("Login error:", err);
         return res.status(500).json({ success: false, message: "Server error during authentication" });
       }
-  
+
       if (!user) {
         console.log("Unauthorized: Invalid credentials");
         return res.status(401).json({ success: false, message: "Invalid username or password" });
       }
-  
+
       req.logIn(user, (err) => {
         if (err) {
           console.error("Login session error:", err);
@@ -121,7 +121,7 @@ const startServer = async () => {
       });
     })(req, res, next);
   });
-  
+
 
   // Set up Vite in middleware mode
   const vite = await createServer({
@@ -135,26 +135,30 @@ const startServer = async () => {
 
   // Highscore Routes
   app.post("/check", async (req, res) => {
-    let user = req.user.username? req.user.username : req.user
-    console.log("Manual user:", user, 
-    "req.user:", req.user, 
-    "req.user.username:", req.user.username);
+    if (req.user) {
+      let user = req.user.username ? req.user.username : req.user
+      console.log("Manual user:", user,
+        "req.user:", req.user,
+        "req.user.username:", req.user.username);
 
-    let databaseArray = await scoresCollection.find().toArray();
-    let filteredArray = databaseArray.filter((v) => v.user === user);
-    sortItem(filteredArray);
-    res.json(filteredArray);
+      let databaseArray = await scoresCollection.find().toArray();
+      let filteredArray = databaseArray.filter((v) => v.user === user);
+      sortItem(filteredArray);
+      res.json(filteredArray);
+    } else {
+      return res.status(500).json({ success: false, message: "Session error" });
+    }
   });
 
   app.post("/submit", async (req, res) => {
     console.log("Request user:", req.user);
 
-    let user = req.user.username? req.user.username : req.user
-  
+    let user = req.user.username ? req.user.username : req.user
+
     const { username, name, score, date } = req.body;
     let id = crypto.randomUUID();
     let submission = { _id: id, rank: null, user: user, name, score, date };
-  
+
     if (name && score && date) {
       await scoresCollection.insertOne(submission);
       updateRankings(user);
@@ -163,13 +167,13 @@ const startServer = async () => {
       res.status(400).json({ error: "Invalid input" });
     }
   });
-  
+
 
   app.post("/delete", async (req, res) => {
     const { index, user } = req.body;
 
-    let correctUser = req.user.username? req.user.username : req.user
-    
+    let correctUser = req.user.username ? req.user.username : req.user
+
     let databaseArray = await scoresCollection.find().toArray();
     let filteredArray = databaseArray.filter((v) => v.user === correctUser && v.rank === index + 1);
 
@@ -185,8 +189,8 @@ const startServer = async () => {
   app.post("/edit", async (req, res) => {
     const { index, name, score, date, user } = req.body;
 
-    let correctUser = req.user.username? req.user.username : req.user
-    
+    let correctUser = req.user.username ? req.user.username : req.user
+
     let databaseArray = await scoresCollection.find().toArray();
     let filteredArray = databaseArray.filter((v) => v.user === correctUser && v.rank === index + 1);
 

@@ -23,14 +23,14 @@ const Dashboard = () => {
       date,
     };
 
-    await axios.post("http://localhost:5000/submit", newScore);
+    await axios.post("/submit", newScore);
     fetchScores(); // Refresh the scoreboard
   };
 
   // Fetch scores from the server
   const fetchScores = async () => {
     try {
-      const response = await axios.post("http://localhost:5000/check", {
+      const response = await axios.post("/check", {
         user: localStorage.getItem("user"),
       });
   
@@ -60,7 +60,7 @@ const Dashboard = () => {
   const saveEdit = async (index) => {
     const updatedEntry = scores[index];
 
-    await axios.post("http://localhost:5000/edit", {
+    await axios.post("/edit", {
       index,
       name: updatedEntry.name,
       score: updatedEntry.score,
@@ -73,7 +73,7 @@ const Dashboard = () => {
 
   // Handle deleting a score
   const deleteScore = async (index) => {
-    await axios.post("http://localhost:5000/delete", { index });
+    await axios.post("/delete", { index });
     fetchScores();
   };
 
