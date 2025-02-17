@@ -29,7 +29,7 @@ const GITHUB_CLIENT_ID = "Ov23li1F0M1sReRgCk8G";
 const GITHUB_CLIENT_SECRET = "9b5974cce6e6e5fd30cf9cb79988eefd3527cbba";
 
 // MongoDB Connection
-const url = process.env.MONGO_URL || "mongodb+srv://austin:mingming7ate9@austina3.uwuux.mongodb.net/";
+const url = "mongodb+srv://austin:mingming7ate9@austina3.uwuux.mongodb.net/";
 const dbconnect = new MongoClient(url);
 let scoresCollection = null;
 
