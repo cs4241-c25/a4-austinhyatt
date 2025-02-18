@@ -1,8 +1,5 @@
-# React + Vite
+##Site link: https://a4-austinhyatt.onrender.com
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
-
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Notes:
+- logging in with username and password only works locally. if you try to use it on the site after logging into github it will just default to logging in with the registerd github account. This has something to do with how passport's local stragegy and github authentication interact, but I don't' think continuing to support traditonal username and password was even part of the requirements so this shouldn't be a problem.
+- Don't leave the site running on dashboard for too long (like past 5-10 minutes), otherwise it will spin down and forget who the user is, causing the server to crash on the next request. Always login through the login page so it can gather a user.
